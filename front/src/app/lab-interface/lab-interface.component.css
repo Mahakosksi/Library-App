@@ -1,0 +1,136 @@
+.sidebar {
+    width: 200px;
+    height: 100%;
+    background: #043326c2;
+    padding: 30px 0px;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .sidebar h2 {
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    font-size: 24px;
+  }
+  
+  .sidebar ul {
+    width: 100%;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .sidebar ul li button {
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    padding: 15px;
+    text-align: left;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sidebar ul li button:hover {
+    background-color: #594f8d;
+  }
+  
+  .sidebar ul li button i {
+    margin-right: 10px;
+  }
+  
+  .main_content {
+    width: calc(100% - 250px);
+    margin-left: 200px;
+    padding: 20px;
+    background: #fff;
+    color: #717171;
+    border-bottom: 1px solid #e0e4e8;
+  }
+  
+    
+  
+  .wrapper .main_content{
+    width: 100%;
+    margin-left: 200px;
+    margin-right: 50px;
+  }
+  
+  .wrapper .main_content .header{
+    padding: 20px;
+    background: #fff;
+    color: #717171;
+    border-bottom: 1px solid #e0e4e8;
+  }
+  
+  
+  /* Define custom styles for the button */
+  .custom-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #28a745; /* Green color */
+    border: 1px solid #28a745; /* Green border */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Hover effect for the button */
+  .custom-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+    border-color: #218838; /* Darker green border on hover */
+    color: #fff;
+  }
+  
+  /* Active/focus styles for the button */
+  .custom-btn:active,
+  .custom-btn:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  
+  .table thead tr th {
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+    padding: 8px;
+  }
+  
+  /* Style for specific table headers (for example, the first table) */
+  .bg-special {
+    background-color: #a2a2dd;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust to your preference */
+  }
+  
+  .welcome-message {
+    padding: 20px;
+    transform: skewY(-5deg);
+  }
+  
+  .welcome-message h1 {
+    font-style: italic;
+    transform: skewY(-15deg);
+  }
+  
+  
+  
+  
+  
+  

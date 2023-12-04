@@ -1,0 +1,248 @@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<div class="wrapper">
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <ul>
+            <li><button (click)="changeContent('publications')"><i class="fas fa-user"></i>My Publications</button></li>
+            <li><button (click)="changeContent('issuedPublications')"><i class="fas fa-user"></i>Issued
+                    Publications</button></li>
+            <li><button (click)="changeContent('lostBooks')"><i class="fas fa-address-card"></i>Lost Books</button></li>
+            <li><button (click)="changeContent('searching')"><i class="fas fa-address-card"></i>Search by author and
+                    year</button></li>
+            <li><button (click)="changeContent('searchingPublisher')"><i class="fas fa-address-card"></i>Search by
+                    publisher</button></li>
+            <li><button (click)="changeContent('searchingCategory')"><i class="fas fa-address-card"></i>Search by
+                    category and price</button></li>
+        </ul>
+    </div>
+    <div class="main_content">
+
+        <ng-container [ngSwitch]="selectedContent">
+            
+
+            <div *ngSwitchCase="'searchingPublisher'">
+                <h1>Search by Publisher</h1>
+                <div class="input-group mt-3 mb-3">
+
+                    <div class="col-md-6">
+                        <div style="margin-bottom: 20px;">
+                            <label for="publisherSelect" class="form-label">Select publisher:</label>
+                            <select id="publisherSelect" [(ngModel)]="selectedPublisher" class="form-select">
+                                <option *ngFor="let publisher of publishers" [value]="publisher">{{ publisher }}
+                                </option>
+                            </select>
+                        </div>
+                        <button (click)="onSearchPublisherClick()" class="btn btn-success">Search</button>
+                    </div>
+
+
+                </div>
+
+
+                <div *ngIf="searchResultsPublisher.length > 0">
+                    <h3>Search Results:</h3>
+                    <table class="table table-bordered">
+                        <thead class="bg-dark text-white">
+                            <tr>
+                                <td class="bg-special">Publication No</td>
+                                <td class="bg-special">Publisher</td>
+                                <td class="bg-special">Publication title</td>
+                                <td class="bg-special">edition</td>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let result of searchResultsPublisher">
+
+                                <td>{{ result[0] }}</td>
+                                <td>{{ result[1] }}</td>
+                                <td>{{ result[2] }}</td>
+                                <td>{{ result[3] }}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div *ngSwitchCase="'searchingCategory'">
+                <h1>Search by category and price</h1>
+                <div class="input-group mt-3 mb-3">
+
+                    <div class="col-md-6">
+                        <div style="margin-bottom: 20px;">
+                            <label for="categorySelect" class="form-label">Select category:</label>
+                            <select id="categorySelect" [(ngModel)]="selectedCatgeory" class="form-select">
+                                <option *ngFor="let category of categories" [value]="category">{{ category }}
+                                </option>
+                            </select>
+                            
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <label for="priceInput" class="form-label">Price less than:</label>
+                            <input type="number" id="priceInput" [(ngModel)]="enteredPrice" class="form-control">
+                        </div>
+                        <button (click)="onSearchCategoryClick()" class="btn btn-success">Search</button>
+                    </div>
+
+
+                </div>
+
+
+                <div *ngIf="searchResultsCategory.length > 0">
+                    <h3>Search Results:</h3>
+                    <table class="table table-bordered">
+                        <thead class="bg-dark text-white">
+                            <tr>
+                                <td class="bg-special">Publication No</td>
+                                <td class="bg-special">Year publication</td>
+                                <td class="bg-special">Status</td>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let result of searchResultsCategory">
+
+                                <td>{{result.idPub}}</td>
+                                <td>{{result.yearPub}}</td>
+                                <td>{{result.status}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+
+            </div>
+
+            <div *ngSwitchCase="'searching'">
+                <h1>Search</h1>
+                <div class="col-md-6">
+                    <div>
+                        <label for="authorSelect" class="form-label">Select Author:</label>
+                        <select id="authorSelect" [(ngModel)]="selectedAuthor" class="form-select">
+                            <option *ngFor="let author of authors" [value]="author">{{ author }}</option>
+                        </select>
+                    </div>
+                    <div class="mt-3">
+                        <label for="yearSelect" class="form-label">Select Year:</label>
+                        <select id="yearSelect" [(ngModel)]="selectedYear" class="form-select">
+                            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                        </select>
+                    </div>
+
+                    <button (click)="onSearchClick()" class="btn btn-success mt-3">Search</button>
+
+                </div>
+                <div *ngIf="searchPerformed">
+
+                    <div *ngIf="searchResults.length > 0">
+                        <h3>Search Results:</h3>
+                        <table class="table table-bordered">
+                            <thead class="bg-dark text-white">
+                                <tr>
+                                    <td class="bg-special">Publication No</td>
+                                    <td class="bg-special">Author</td>
+                                    <td class="bg-special">Year</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let result of searchResults">
+                                    <td>{{ result[0] }}</td>
+                                    <td>{{ result[1] }}</td>
+                                    <td>{{ result[2] }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="searchResults.length === 0">
+
+                        <div class="input-group mt-3 mb-3">
+                            <p>No results found for the selected author and year.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div *ngSwitchCase="'publications'">
+                <h1>My Publications</h1>
+                <p style="font-size: 18px; font-weight: normal; color: #007bff;">
+                    The total cost of all your publications in euro is: {{ totalPublicationCost }}
+                </p>
+                <div class="input-group mt-3 mb-3">
+                    <input class="form-control form-control-sm col-4" type="text" placeholder="Search"
+                        [(ngModel)]="searchText">
+                </div>
+                <table datatable class="table table-bordered">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <td class="bg-special">Publication No</td>
+                            <td class="bg-special">Year of publication</td>
+                            <td class="bg-special">Status</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of accessiblePublications | search : searchText">
+                            <td>{{item.idPub}}</td>
+                            <td>{{item.yearPub}}</td>
+                            <td>{{item.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div *ngSwitchCase="'issuedPublications'">
+                <h1>Issued Publications</h1>
+                <!-- Display issued publications -->
+                <div class="input-group mt-3 mb-3">
+                    <input class="form-control form-control-sm col-4" type="text" placeholder="Search"
+                        [(ngModel)]="searchText">
+                </div>
+                <table datatable class="table table-bordered">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <td class="bg-special">Publication No</td>
+                            <td class="bg-special">Year of publication</td>
+                            <td class="bg-special">Issued user email</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of issuedPublications | search : searchText">
+                            <td>{{item.idPub}}</td>
+                            <td>{{item.yearPub}}</td>
+                            <td>{{item.issuedEmail}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div *ngSwitchCase="'lostBooks'">
+                <h1>Lost Books</h1>
+                <!-- Display lost books -->
+                <div class="input-group mt-3 mb-3">
+                    <input class="form-control form-control-sm col-4" type="text" placeholder="Search"
+                        [(ngModel)]="searchText">
+                </div>
+                <table datatable class="table table-bordered">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <td class="bg-special">Publication No</td>
+                            <td class="bg-special">Publisher</td>
+                            <td class="bg-special">Title</td>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of lostBooks  | search : searchText">
+                            <td>{{item.idPub}}</td>
+                            <td>{{item.publisher}}</td>
+                            <td>{{item.title}}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-container>
+    </div>
+</div>

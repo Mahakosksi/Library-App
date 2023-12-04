@@ -1,0 +1,12 @@
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <div class="alert alert-warning" *ngIf="errorMessage">{{ errorMessage }}</div>
+        <div class="alert alert-warning" *ngIf="loginMessage">{{ loginMessage }}</div>
+      <h3>Login</h3>
+      <form>
+        <input type="text" id="username" class="fadeIn second" [(ngModel)]="username" name="username" placeholder="username">
+        <input type="password" id="password" class="fadeIn third" [(ngModel)]="password" name="password" placeholder="password">
+        <input type="submit" (click)=login() class="fadeIn fourth" value="Log In">
+      </form>
+    </div>
+</div>

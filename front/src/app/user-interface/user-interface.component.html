@@ -1,0 +1,140 @@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+
+<!-- app.component.html -->
+<div class="wrapper">
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <ul>
+        <li><button (click)="changeContent('access')"><i class="fas fa-home"></i>Check access</button></li>
+        <li><button (click)="changeContent('publications')"><i class="fas fa-user"></i>Publications</button></li>
+        <li><button (click)="changeContent('bookscateg')"><i class="fas fa-user"></i>Books category</button></li>
+        <li><button (click)="changeContent('personalspace')"><i class="fas fa-address-card"></i>Personal space</button></li>
+      </ul>
+    </div>
+    
+    
+    
+    <div class="main_content">
+      
+      <ng-container [ngSwitch]="selectedContent">
+        <div *ngSwitchCase="''">
+          <div class="centered-content">
+            <div class="welcome-message">
+              <h1>Discover the Depths of Knowledge</h1>
+            </div>
+          </div>
+        </div>
+        
+        <div *ngSwitchCase="'access'">
+          <h1>You have the right to the following publications</h1>
+          <div class="input-group mt-3 mb-3">
+            <input class="form-control form-control-sm col-4" type="text" placeholder="Search" [(ngModel)]="searchText">
+          </div>
+          <table datatable class="table table-bordered">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <td class="bg-special">Publication No</td>
+                    <td  class="bg-special">Year of publication</td>
+                    <td  class="bg-special">Status</td>
+                    <td  class="bg-special">Action</td>
+                    
+                </tr>
+            </thead>
+            <tbody>
+        <tr *ngFor="let item of accessiblePublications | search : searchText">
+          <td>{{item.idPub}}</td>
+          <td>{{item.yearPub}}</td>
+          <td>{{item.status}}</td>
+
+    
+          <td style="width: 20%">
+            <a class="btn btn-primary custom-btn" (click)="borrowPublication(item)">Borrow</a>
+          </td>
+        </tr>
+            </tbody>
+
+        </table>
+
+        </div>
+        <div *ngSwitchCase="'publications'">
+          <h1>Publication</h1>
+          <div class="input-group mt-3 mb-3">
+            <input class="form-control form-control-sm col-4" type="text" placeholder="Search" [(ngModel)]="searchText">
+          </div>
+          <table datatable class="table table-bordered">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <td  class="bg-special">Publication No</td>
+                    <td  class="bg-special">Year of publication</td>
+                    <td  class="bg-special">Status</td>
+                    
+                </tr>
+            </thead>
+            <tbody>
+        <tr *ngFor="let item of publications | search : searchText">
+           <td>{{item.idPub}}</td>
+           <td>{{item.yearPub}}</td>
+           <td>{{item.status}}</td>
+
+        </tr>
+            </tbody>
+
+        </table>
+
+        </div>
+        <div *ngSwitchCase="'bookscateg'">
+          <h1>Publication</h1>
+          <div class="input-group mt-3 mb-3">
+            <input class="form-control form-control-sm col-4" type="text" placeholder="Search" [(ngModel)]="searchText">
+          </div>
+          <table datatable class="table table-bordered">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <td class="bg-special">Category name</td>
+                    <td class="bg-special">Book No</td> 
+                    <td class="bg-special">Book title </td> 
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let book of booksCategory | search : searchText">
+                <td>{{ book[0] }}</td>
+                <td>{{ book[1] }}</td>
+                <td>{{ book[2] }}</td>
+              </tr>
+            </tbody>
+
+        </table>
+
+        </div>
+        <div *ngSwitchCase="'personalspace'">
+          <h1>You have issued the following publications</h1>
+          <div class="input-group mt-3 mb-3">
+            <input class="form-control form-control-sm col-4" type="text" placeholder="Search" [(ngModel)]="searchText">
+          </div>
+          <table datatable class="table table-bordered">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <td class="bg-special">Publication No</td>
+                    <td class="bg-special">Year of publication</td>
+                    <td class="bg-special">Status</td>
+                
+                    
+                </tr>
+            </thead>
+            <tbody>
+        <tr *ngFor="let item of issuedPublications | search : searchText">
+           <td>{{item.idPub}}</td>
+           <td>{{item.yearPub}}</td>
+           <td>{{item.status}}</td>
+
+    
+
+        </tr>
+            </tbody>
+
+        </table>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  
